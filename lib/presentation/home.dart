@@ -2,6 +2,7 @@ import 'package:expense_tracker/core/theme/app_theme.dart';
 import 'package:expense_tracker/core/utils/app_utils.dart';
 import 'package:expense_tracker/data/models/expense_model.dart';
 import 'package:expense_tracker/domain/repository/expense_repository.dart';
+import 'package:expense_tracker/feature/users/presentation/users.dart';
 import 'package:expense_tracker/presentation/bloc/expense_bloc.dart';
 import 'package:expense_tracker/presentation/widgets/add_edit_expense_dialog.dart';
 import 'package:expense_tracker/presentation/widgets/dashboard_widget.dart';
@@ -115,9 +116,17 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Center(
-              child: Text(
-                'Balance',
-                style: Theme.of(context).textTheme.bodySmall,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UsersScreen()),
+                  );
+                },
+                child: Text(
+                  'Balance',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
             ),
           ),
