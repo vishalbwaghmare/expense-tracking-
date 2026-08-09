@@ -73,8 +73,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Expense?'),
-        content:
-            const Text('Are you sure you want to delete this expense?'),
+        content: const Text('Are you sure you want to delete this expense?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -131,9 +130,7 @@ class _HomePageState extends State<HomePage> {
               return const SizedBox();
 
             case ExpenseStatus.loading:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const Center(child: CircularProgressIndicator());
 
             case ExpenseStatus.success:
               return _buildSuccessBody(context, state);
@@ -265,10 +262,9 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Text(
                       'Clear filters',
-                      style:
-                          Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: AppTheme.primaryColor,
-                              ),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppTheme.primaryColor,
+                      ),
                     ),
                   ),
               ],
@@ -361,15 +357,9 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 12),
             _DetailRow(label: 'Category', value: expense.category),
             const SizedBox(height: 12),
-            _DetailRow(
-              label: 'Date',
-              value: AppUtils.formatDate(expense.date),
-            ),
+            _DetailRow(label: 'Date', value: AppUtils.formatDate(expense.date)),
             const SizedBox(height: 12),
-            _DetailRow(
-              label: 'Time',
-              value: AppUtils.formatTime(expense.date),
-            ),
+            _DetailRow(label: 'Time', value: AppUtils.formatTime(expense.date)),
             const SizedBox(height: 24),
             Row(
               children: [
@@ -402,25 +392,19 @@ class _DetailRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const _DetailRow({
-    required this.label,
-    required this.value,
-  });
+  const _DetailRow({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
+        Text(label, style: Theme.of(context).textTheme.bodyMedium),
         Text(
           value,
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
       ],
     );

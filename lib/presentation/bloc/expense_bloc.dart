@@ -70,20 +70,14 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     add(LoadExpenses());
   }
 
-  void _onSearchExpenses(
-    SearchExpenses event,
-    Emitter<ExpenseState> emit,
-  ) {
+  void _onSearchExpenses(SearchExpenses event, Emitter<ExpenseState> emit) {
     final query = event.query.toLowerCase();
     final filtered = state.expenses.where((expense) {
       return expense.title.toLowerCase().contains(query) ||
           expense.category.toLowerCase().contains(query);
     }).toList();
 
-    emit(state.copyWith(
-      searchQuery: event.query,
-      filteredExpenses: filtered,
-    ));
+    emit(state.copyWith(searchQuery: event.query, filteredExpenses: filtered));
   }
 
   void _onFilterByDateRange(
@@ -95,37 +89,37 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
           expense.date.isBefore(event.to.add(const Duration(days: 1)));
     }).toList();
 
-    emit(state.copyWith(
-      selectedDateFrom: event.from,
-      selectedDateTo: event.to,
-      filteredExpenses: filtered,
-    ));
+    emit(
+      state.copyWith(
+        selectedDateFrom: event.from,
+        selectedDateTo: event.to,
+        filteredExpenses: filtered,
+      ),
+    );
   }
 
-  void _onFilterByCategory(
-    FilterByCategory event,
-    Emitter<ExpenseState> emit,
-  ) {
+  void _onFilterByCategory(FilterByCategory event, Emitter<ExpenseState> emit) {
     final filtered = state.expenses.where((expense) {
       return expense.category == event.category;
     }).toList();
 
-    emit(state.copyWith(
-      selectedCategory: event.category,
-      filteredExpenses: filtered,
-    ));
+    emit(
+      state.copyWith(
+        selectedCategory: event.category,
+        filteredExpenses: filtered,
+      ),
+    );
   }
 
-  void _onClearFilters(
-    ClearFilters event,
-    Emitter<ExpenseState> emit,
-  ) {
-    emit(state.copyWith(
-      filteredExpenses: state.expenses,
-      searchQuery: '',
-      clearDateFrom: true,
-      clearDateTo: true,
-      clearCategory: true,
-    ));
+  void _onClearFilters(ClearFilters event, Emitter<ExpenseState> emit) {
+    emit(
+      state.copyWith(
+        filteredExpenses: state.expenses,
+        searchQuery: '',
+        clearDateFrom: true,
+        clearDateTo: true,
+        clearCategory: true,
+      ),
+    );
   }
 }

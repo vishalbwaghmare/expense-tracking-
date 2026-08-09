@@ -40,7 +40,9 @@ class ExpenseCard extends StatelessWidget {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: _getCategoryColor(expense.category).withValues(alpha: 0.15),
+                  color: _getCategoryColor(
+                    expense.category,
+                  ).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -85,9 +87,9 @@ class ExpenseCard extends StatelessWidget {
                   Text(
                     AppUtils.formatCurrency(expense.amount),
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: AppTheme.dangerColor,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      color: AppTheme.dangerColor,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   PopupMenuButton(
@@ -106,9 +108,16 @@ class ExpenseCard extends StatelessWidget {
                         onTap: onDelete,
                         child: const Row(
                           children: [
-                            Icon(Icons.delete, size: 18, color: AppTheme.dangerColor),
+                            Icon(
+                              Icons.delete,
+                              size: 18,
+                              color: AppTheme.dangerColor,
+                            ),
                             SizedBox(width: 8),
-                            Text('Delete', style: TextStyle(color: AppTheme.dangerColor)),
+                            Text(
+                              'Delete',
+                              style: TextStyle(color: AppTheme.dangerColor),
+                            ),
                           ],
                         ),
                       ),

@@ -34,8 +34,9 @@ class _AddEditExpenseDialogState extends State<AddEditExpenseDialog> {
   void initState() {
     super.initState();
     titleController = TextEditingController(text: widget.expense?.title ?? '');
-    amountController =
-        TextEditingController(text: widget.expense?.amount.toString() ?? '');
+    amountController = TextEditingController(
+      text: widget.expense?.amount.toString() ?? '',
+    );
     dateController = TextEditingController(
       text: widget.expense != null
           ? widget.expense!.date.toString().split(' ')[0]
@@ -62,9 +63,9 @@ class _AddEditExpenseDialogState extends State<AddEditExpenseDialog> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: Theme.of(context).colorScheme.copyWith(
-                  primary: AppTheme.primaryColor,
-                ),
+            colorScheme: Theme.of(
+              context,
+            ).colorScheme.copyWith(primary: AppTheme.primaryColor),
           ),
           child: child!,
         );
@@ -139,10 +140,7 @@ class _AddEditExpenseDialogState extends State<AddEditExpenseDialog> {
               const SizedBox(height: 24),
 
               // Title Field
-              Text(
-                'Title',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Title', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
               TextField(
                 controller: titleController,
@@ -157,10 +155,7 @@ class _AddEditExpenseDialogState extends State<AddEditExpenseDialog> {
               const SizedBox(height: 16),
 
               // Amount Field
-              Text(
-                'Amount',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Amount', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
               TextField(
                 controller: amountController,
@@ -177,10 +172,7 @@ class _AddEditExpenseDialogState extends State<AddEditExpenseDialog> {
               const SizedBox(height: 16),
 
               // Category Selection
-              Text(
-                'Category',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Category', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -212,7 +204,8 @@ class _AddEditExpenseDialogState extends State<AddEditExpenseDialog> {
                         ),
                         child: Text(
                           category,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
                                 color: isSelected
                                     ? Colors.white
                                     : AppTheme.textPrimary,
@@ -227,10 +220,7 @@ class _AddEditExpenseDialogState extends State<AddEditExpenseDialog> {
               const SizedBox(height: 16),
 
               // Date Field
-              Text(
-                'Date',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Date', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
               GestureDetector(
                 onTap: () => _selectDate(context),
@@ -261,9 +251,7 @@ class _AddEditExpenseDialogState extends State<AddEditExpenseDialog> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: _submitForm,
-                      child: Text(
-                        widget.expense == null ? 'Add' : 'Update',
-                      ),
+                      child: Text(widget.expense == null ? 'Add' : 'Update'),
                     ),
                   ),
                 ],

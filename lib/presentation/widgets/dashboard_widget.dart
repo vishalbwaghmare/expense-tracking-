@@ -20,10 +20,7 @@ class DashboardWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      AppTheme.primaryColor,
-                      AppTheme.secondaryColor,
-                    ],
+                    colors: [AppTheme.primaryColor, AppTheme.secondaryColor],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -41,17 +38,17 @@ class DashboardWidget extends StatelessWidget {
                   children: [
                     Text(
                       'Total Expenses',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.white70,
-                          ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       AppUtils.formatCurrency(state.totalExpenses),
                       style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Row(
@@ -67,7 +64,9 @@ class DashboardWidget extends StatelessWidget {
                         Expanded(
                           child: _StatItem(
                             label: 'Average',
-                            value: AppUtils.formatCurrency(state.averageExpense),
+                            value: AppUtils.formatCurrency(
+                              state.averageExpense,
+                            ),
                             textColor: Colors.white,
                           ),
                         ),
@@ -91,16 +90,18 @@ class DashboardWidget extends StatelessWidget {
                       iconColor: AppTheme.successColor,
                       label: 'Highest Category',
                       value: state.highestExpenseCategory,
-                      backgroundColor:
-                          AppTheme.successColor.withValues(alpha: 0.1),
+                      backgroundColor: AppTheme.successColor.withValues(
+                        alpha: 0.1,
+                      ),
                     ),
                     _StatCard(
                       icon: Icons.calendar_month,
                       iconColor: AppTheme.accentColor,
                       label: 'This Month',
                       value: state.thisMonthTransactions.toString(),
-                      backgroundColor:
-                          AppTheme.accentColor.withValues(alpha: 0.1),
+                      backgroundColor: AppTheme.accentColor.withValues(
+                        alpha: 0.1,
+                      ),
                     ),
                   ],
                 ),
@@ -133,15 +134,15 @@ class _StatItem extends StatelessWidget {
         Text(
           label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: textColor.withValues(alpha: 0.8),
-              ),
+            color: textColor.withValues(alpha: 0.8),
+          ),
         ),
         const SizedBox(height: 4),
         Text(
           value,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: textColor,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(color: textColor),
         ),
       ],
     );
@@ -178,10 +179,7 @@ class _StatCard extends StatelessWidget {
         children: [
           Icon(icon, color: iconColor, size: 28),
           const SizedBox(height: 12),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
+          Text(label, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 4),
           Text(
             value,

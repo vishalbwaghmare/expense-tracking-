@@ -35,48 +35,50 @@ class ExpenseState extends Equatable {
 
   // Calculated properties (all logic in BLoC state)
   double get totalExpenses => expenses.fold(0, (total, e) => total + e.amount);
-  
-  double get filteredTotal => filteredExpenses.fold(0, (total, e) => total + e.amount);
-  
+
+  double get filteredTotal =>
+      filteredExpenses.fold(0, (total, e) => total + e.amount);
+
   double get averageExpense {
     if (expenses.isEmpty) return 0;
     return totalExpenses / expenses.length;
   }
-  
+
   double get filteredAverage {
     if (filteredExpenses.isEmpty) return 0;
     return filteredTotal / filteredExpenses.length;
   }
-  
+
   int get transactionCount => expenses.length;
-  
+
   int get filteredTransactionCount => filteredExpenses.length;
-  
+
   int get thisMonthTransactions {
     final now = DateTime.now();
     return expenses
         .where((e) => e.date.year == now.year && e.date.month == now.month)
         .length;
   }
-  
+
   String get highestExpenseCategory {
     if (expenses.isEmpty) return 'N/A';
     final categoryMap = _getCategoryWiseTotal();
     if (categoryMap.isEmpty) return 'N/A';
-    final highest = categoryMap.entries
-        .reduce((a, b) => a.value > b.value ? a : b);
+    final highest = categoryMap.entries.reduce(
+      (a, b) => a.value > b.value ? a : b,
+    );
     return highest.key;
   }
-  
+
   double get highestCategoryAmount {
     if (expenses.isEmpty) return 0;
     final categoryMap = _getCategoryWiseTotal();
     if (categoryMap.isEmpty) return 0;
     return categoryMap.values.reduce((a, b) => a > b ? a : b);
   }
-  
+
   Map<String, double> get categoryWiseTotal => _getCategoryWiseTotal();
-  
+
   Map<String, int> get categoryWiseCount {
     final countMap = <String, int>{};
     for (var expense in expenses) {
@@ -84,7 +86,7 @@ class ExpenseState extends Equatable {
     }
     return countMap;
   }
-  
+
   Map<String, double> get filteredCategoryWiseTotal {
     final categoryMap = <String, double>{};
     for (var expense in filteredExpenses) {
@@ -93,14 +95,14 @@ class ExpenseState extends Equatable {
     }
     return categoryMap;
   }
-  
+
   bool get hasActiveFilters =>
       selectedCategory != null ||
       selectedDateFrom != null ||
       searchQuery.isNotEmpty;
-  
+
   bool get isEmpty => expenses.isEmpty;
-  
+
   bool get isFilteredEmpty => filteredExpenses.isEmpty;
 
   Map<String, double> _getCategoryWiseTotal() {
@@ -130,25 +132,28 @@ class ExpenseState extends Equatable {
       expenses: expenses ?? this.expenses,
       filteredExpenses: filteredExpenses ?? this.filteredExpenses,
       errorMessage: errorMessage,
-      selectedDateFrom:
-          clearDateFrom ? null : (selectedDateFrom ?? this.selectedDateFrom),
-      selectedDateTo:
-          clearDateTo ? null : (selectedDateTo ?? this.selectedDateTo),
-      selectedCategory:
-          clearCategory ? null : (selectedCategory ?? this.selectedCategory),
+      selectedDateFrom: clearDateFrom
+          ? null
+          : (selectedDateFrom ?? this.selectedDateFrom),
+      selectedDateTo: clearDateTo
+          ? null
+          : (selectedDateTo ?? this.selectedDateTo),
+      selectedCategory: clearCategory
+          ? null
+          : (selectedCategory ?? this.selectedCategory),
       searchQuery: searchQuery ?? this.searchQuery,
     );
   }
 
   @override
   List<Object?> get props => [
-        status,
-        expenses,
-        filteredExpenses,
-        errorMessage,
-        selectedDateFrom,
-        selectedDateTo,
-        selectedCategory,
-        searchQuery,
-      ];
+    status,
+    expenses,
+    filteredExpenses,
+    errorMessage,
+    selectedDateFrom,
+    selectedDateTo,
+    selectedCategory,
+    searchQuery,
+  ];
 }
