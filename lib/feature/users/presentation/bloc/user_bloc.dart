@@ -10,7 +10,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository _repository;
 
   UserBloc(this._repository) : super(UserState.initial()) {
+    on<OnInit>(_onInitEvent);
     on<OnGetUsers>(_onGetUsersEvent);
+    add(OnInit());
+  }
+
+  void _onInitEvent(OnInit event, Emitter<UserState> emit) {
+    add(OnGetUsers());
   }
 
   Future<void> _onGetUsersEvent(
