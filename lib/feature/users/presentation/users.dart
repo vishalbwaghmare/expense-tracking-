@@ -26,38 +26,41 @@ class Users extends StatefulWidget {
 class _UsersState extends State<Users> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<UserBloc, UserState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return ListView.separated(
-            padding: EdgeInsets.all(10),
-            itemCount: state.users.length,
-            itemBuilder: (context, index) {
-              final user = state.users[index];
-              return ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(14),
-                ),
-                dense: true,
-                tileColor: AppTheme.textSecondary,
-                style: ListTileStyle.list,
-                contentPadding: EdgeInsets.all(14),
-                title: Text(
-                  user.name,
-                  style: TextStyle(color: AppTheme.backgroundColor),
-                ),
-                subtitle: Text(
-                  user.company.name,
-                  style: TextStyle(color: AppTheme.backgroundColor),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(height: 12),
-          );
-        },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(),
+        body: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return ListView.separated(
+              padding: const EdgeInsets.all(10),
+              itemCount: state.users.length,
+              itemBuilder: (context, index) {
+                final user = state.users[index];
+                return ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(14),
+                  ),
+                  dense: true,
+                  tileColor: AppTheme.textSecondary,
+                  style: ListTileStyle.list,
+                  contentPadding: EdgeInsets.all(14),
+                  title: Text(
+                    user.name,
+                    style: TextStyle(color: AppTheme.backgroundColor),
+                  ),
+                  subtitle: Text(
+                    user.company.name,
+                    style: TextStyle(color: AppTheme.backgroundColor),
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
+            );
+          },
+        ),
       ),
     );
   }
