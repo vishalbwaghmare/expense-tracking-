@@ -338,11 +338,19 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) => Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.only(top: 5, right: 24, left: 24, bottom: 24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+              child: Container(
+                width: 40,
+                alignment: Alignment.center,
+                child: Divider(color: AppTheme.dividerColor, thickness: 3),
+              ),
+            ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
