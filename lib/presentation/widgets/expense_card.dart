@@ -92,11 +92,18 @@ class ExpenseCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  PopupMenuButton(
+                  PopupMenuButton<int>(
+                    onSelected: (value) {
+                      if (value == 0) {
+                        onEdit();
+                      } else if (value == 1) {
+                        onDelete();
+                      }
+                    },
                     itemBuilder: (BuildContext context) => [
-                      PopupMenuItem(
-                        onTap: onEdit,
-                        child: const Row(
+                      const PopupMenuItem<int>(
+                        value: 0,
+                        child: Row(
                           children: [
                             Icon(Icons.edit, size: 18),
                             SizedBox(width: 8),
@@ -104,9 +111,9 @@ class ExpenseCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      PopupMenuItem(
-                        onTap: onDelete,
-                        child: const Row(
+                      const PopupMenuItem<int>(
+                        value: 1,
+                        child: Row(
                           children: [
                             Icon(
                               Icons.delete,

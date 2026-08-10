@@ -70,21 +70,30 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showDeleteConfirmation(BuildContext context, String id) {
+    final expenseBloc = context.read<ExpenseBloc>();
+    final scaffoldContext = context;
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         title: const Text('Delete Expense?'),
         content: const Text('Are you sure you want to delete this expense?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(dialogContext),
             child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
-              context.read<ExpenseBloc>().add(DeleteExpense(id));
-              Navigator.pop(context);
-              _showSuccessSnackBar('Expense deleted successfully');
+              expenseBloc.add(DeleteExpense(id));
+              Navigator.pop(dialogContext);
+              ScaffoldMessenger.of(scaffoldContext).showSnackBar(
+                SnackBar(
+                  content: const Text('Expense deleted successfully'),
+                  backgroundColor: AppTheme.successColor,
+                  duration: const Duration(seconds: 2),
+                ),
+              );
             },
             child: const Text(
               'Delete',
