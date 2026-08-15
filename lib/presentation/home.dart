@@ -9,6 +9,7 @@ import 'package:expense_tracker/presentation/widgets/dashboard_widget.dart';
 import 'package:expense_tracker/presentation/widgets/expense_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:expense_tracker/feature/blutooth_service/blutooth_service.dart';
 
 class HomeContainer extends StatelessWidget {
   const HomeContainer({super.key});
@@ -36,6 +37,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
   bool showDashboard = true;
+  bool? _isBluetoothEnabled;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkBluetooth();
+  }
+
+  Future<void> _checkBluetooth() async {
+    try {
+      final enabled = await BlutoothService.isBluetoothEnabled();
+      if (mounted) {
+        setState(() {
+          _isBluetoothEnabled = enabled;
+        });
+      }
+    } catch (_) {
+      if (mounted) setState(() => _isBluetoothEnabled = false);
+    }
+  }
 
   @override
   void dispose() {
@@ -122,6 +143,29 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Expense Tracker'),
         elevation: 0,
         actions: [
+          IconButton(
+            icon: Icon(
+              _isBluetoothEnabled == true
+                  ? Icons.bluetooth
+                  : Icons.bluetooth_disabled,
+              color: _isBluetoothEnabled == true
+                  ? AppTheme.successColor
+                  : AppTheme.textSecondary,
+            ),
+            onPressed: () async {
+              await _checkBluetooth();
+              final status = _isBluetoothEnabled == true
+                  ? 'Bluetooth enabled'
+                  : 'Bluetooth disabled';
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(status),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            },
+            tooltip: 'Bluetooth status',
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Center(
